@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:plans_app/view/widgets/plans_date.dart';
 import 'package:plans_app/view/widgets/plans_number.dart';
@@ -26,7 +27,16 @@ DateTime? nowDateChoose = DateTime.now();
       });
     });
   }
-
+  void previousDay(){
+    setState(() {
+      nowDateChoose = DateTime(nowDateChoose!.year,nowDateChoose!.month,nowDateChoose!.day-1);
+    });
+  }
+  void nextDay(){
+    setState(() {
+      nowDateChoose = DateTime(nowDateChoose!.year,nowDateChoose!.month, nowDateChoose!.day+1);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +48,7 @@ DateTime? nowDateChoose = DateTime.now();
       ),
       body: Column(
         children: [
-          PlansDate(dateChoos,nowDateChoose!),
+          PlansDate(dateChoos,nowDateChoose!,nextDay,previousDay,),
           PlansNumber(),
           PlansList(),
         ],
