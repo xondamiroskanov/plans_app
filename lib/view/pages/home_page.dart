@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:plans_app/view/widgets/plans_date.dart';
 import 'package:plans_app/view/widgets/plans_number.dart';
-
+import 'package:plans_app/models/plans_model.dart';
 import '../widgets/plans_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,34 +10,58 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-DateTime? nowDateChoose = DateTime.now();
+  final List<PlansModel> _plansModel = PlansInformation().plansList;
+  DateTime? _nowDateChoose = DateTime.now();
 
-  void dateChoos(BuildContext context) {
+  void _dateChoos(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
-      lastDate: DateTime(2023,12,31),
+      lastDate: DateTime(2023, 12, 31),
     ).then((choosDay) {
       setState(() {
-        if(choosDay != null){
-          nowDateChoose = choosDay;
+        if (choosDay != null) {
+          _nowDateChoose = choosDay;
         }
       });
     });
   }
-  void previousDay(){
+
+  void _previousDay() {
     setState(() {
-      nowDateChoose = DateTime(nowDateChoose!.year,nowDateChoose!.month,nowDateChoose!.day-1);
+      _nowDateChoose = DateTime(
+          _nowDateChoose!.year, _nowDateChoose!.month, _nowDateChoose!.day - 1);
     });
   }
-  void nextDay(){
+
+  void _nextDay() {
     setState(() {
-      nowDateChoose = DateTime(nowDateChoose!.year,nowDateChoose!.month, nowDateChoose!.day+1);
+      _nowDateChoose = DateTime(
+          _nowDateChoose!.year, _nowDateChoose!.month, _nowDateChoose!.day + 1);
     });
   }
+
+  void _done(String myId) {
+    setState(() {
+      _plansModel.firstWhere((element) => element.id == myId).toogleDoneFunc();
+    });
+    print(myId);
+
+  }
+  void _plansDelete(String id) {
+    setState(() {
+      _plansModel.removeWhere((deleteId) {
+        return deleteId.id == id;
+      });
+
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    // print(plansModel);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -48,9 +71,15 @@ DateTime? nowDateChoose = DateTime.now();
       ),
       body: Column(
         children: [
-          PlansDate(dateChoos,nowDateChoose!,nextDay,previousDay,),
-          PlansNumber(),
-          PlansList(),
+          PlansDate(
+            _dateChoos,
+            _nowDateChoose!,
+            _nextDay,
+            _previousDay,
+          ),
+
+          PlansNumber(_plansModel),
+          PlansList(_plansModel, _done,_plansDelete),
         ],
       ),
       floatingActionButton: FloatingActionButton(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-class PlansNumber extends StatelessWidget {
-  const PlansNumber({Key? key}) : super(key: key);
 
+import '../../models/plans_model.dart';
+class PlansNumber extends StatelessWidget {
+final List<PlansModel> plans;
+PlansNumber(this.plans);
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -13,11 +15,10 @@ class PlansNumber extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "03",
-                style:
-                TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+               plans.length.toString(),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
-              Text(
+              const Text(
                 "Rejalar soni",
                 style: TextStyle(
                     fontSize: 16,
@@ -30,24 +31,24 @@ class PlansNumber extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "00",
-                style: TextStyle(
+                plans.where((element) =>element.toogleDone ).length.toString(),
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              Text(
+              const  Text(
                 "Bajarilgan rejalar",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
                   fontWeight: FontWeight.w500,
                 ),
-              )
+              ),
             ],
           )
         ],
       ),
-    );
+    );;
   }
 }

@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-
+import 'package:plans_app/models/plans_model.dart';
+import 'plans_list_tile.dart';
 class PlansList extends StatelessWidget {
+
+
+
+  // final plansInformation = PlansInformation().plansList;
+  final List<PlansModel> plans;
+  final Function done;
+  final Function deletePlans;
+  PlansList(this.plans,this.done,this.deletePlans);
+
+
+
   @override
   Widget build(BuildContext context) {
+
     return Expanded(
       child: ListView.builder(
-          itemCount: 3,
+          itemCount: plans.length,
+          // plansInformation.length,
           itemBuilder: (context, index) {
-            return ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                leading: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.circle_outlined),
-                ),
-                title: Text(
-                  "Universitetga borish",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                trailing: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.delete_forever_rounded),
-                ));
+            return PlansListTile(plans[index],done,deletePlans);
           }),
     );
   }
