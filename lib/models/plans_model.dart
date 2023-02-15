@@ -3,7 +3,6 @@ class PlansModel {
   final String plansName;
   final DateTime plansDay;
   bool toogleDone = false;
-
   PlansModel({
   required this.plansName,required this.plansDay,required this.id});
 
@@ -18,7 +17,6 @@ class PlansInformation {
     PlansModel(plansName: "Uyga qaytish ",plansDay: DateTime.now(),id: "p2"),
     PlansModel(plansName: "Ovqat yeyish ",plansDay: DateTime.now(),id: "p3"),
     PlansModel(plansName: "Flutter bilan shu'gullanish ",plansDay: DateTime.now(),id: "p4"),
-
   ];
 
 

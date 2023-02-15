@@ -6,7 +6,6 @@ class PlansListTile extends StatelessWidget {
   final Function done;
   final Function deletePlans;
   PlansListTile(this.pM, this.done,this.deletePlans);
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -20,22 +19,12 @@ class PlansListTile extends StatelessWidget {
                 Icons.check_circle_outline,
                 color: Colors.lightGreen,
               )
-            : Icon(
+            : const Icon(
                 Icons.circle_outlined,
                 color: Colors.lightBlue,
               ),
       ),
       title: Text(
-        // plansInformation[index].plansName,
-        // style: plansInformation[index].toogleDone
-        //     ? const TextStyle(
-        //         fontWeight: FontWeight.bold,
-        //         decoration: TextDecoration.lineThrough,
-        //         color: Colors.black45,
-        // )
-        //     : const TextStyle(
-        //         fontWeight: FontWeight.bold,
-        //       ),
         pM.plansName,
         style: pM.toogleDone
             ? const TextStyle(

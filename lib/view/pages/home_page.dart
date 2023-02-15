@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plans_app/view/widgets/plans_date.dart';
+import 'package:plans_app/view/widgets/plans_modal_sheet.dart';
 import 'package:plans_app/view/widgets/plans_number.dart';
 import 'package:plans_app/models/plans_model.dart';
 import '../widgets/plans_list.dart';
@@ -46,22 +47,32 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _plansModel.firstWhere((element) => element.id == myId).toogleDoneFunc();
     });
-    print(myId);
-
   }
+
   void _plansDelete(String id) {
     setState(() {
       _plansModel.removeWhere((deleteId) {
         return deleteId.id == id;
       });
-
     });
   }
 
+  void _plansAdd(String plansname, DateTime time){
+    print(plansname);
+    print(time);
+  }
+
+  void plansAddDisplay(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return PLansModalSheet(_plansAdd);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // print(plansModel);
+    // print(_plansModel);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -77,14 +88,15 @@ class _HomePageState extends State<HomePage> {
             _nextDay,
             _previousDay,
           ),
-
           PlansNumber(_plansModel),
-          PlansList(_plansModel, _done,_plansDelete),
+          PlansList(_plansModel, _done, _plansDelete),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 6,
-        onPressed: () {},
+        onPressed: () {
+          plansAddDisplay(context);
+        },
         child: Icon(Icons.add),
       ),
     );

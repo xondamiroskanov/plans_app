@@ -6,6 +6,7 @@ final List<PlansModel> plans;
 PlansNumber(this.plans);
   @override
   Widget build(BuildContext context) {
+    // print(plans.where((element) =>element.toogleDone ).length);
     return Padding(
       padding: EdgeInsets.all(20),
       child: Row(
@@ -49,6 +50,6 @@ PlansNumber(this.plans);
           )
         ],
       ),
-    );;
+    );
   }
 }
