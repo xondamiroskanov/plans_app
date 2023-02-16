@@ -45,7 +45,10 @@ class _HomePageState extends State<HomePage> {
 
   void _done(String myId) {
     setState(() {
-      _plansModel.plansList.firstWhere((element) => element.id == myId).toogleDoneFunc();
+      _plansModel
+          .plansByDy(_nowDateChoose!)
+          .firstWhere((element) => element.id == myId)
+          .toogleDoneFunc();
     });
   }
 
@@ -57,7 +60,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _plansAdd(String plansname, DateTime time){
+  void _plansAdd(String plansname, DateTime time) {
     setState(() {
       _plansModel.addPlansEnd(plansname, time);
     });
@@ -66,6 +69,8 @@ class _HomePageState extends State<HomePage> {
 
   void plansAddDisplay(BuildContext context) {
     showModalBottomSheet(
+        isScrollControlled: true,
+        isDismissible: false,
         context: context,
         builder: (context) {
           return PLansModalSheet(_plansAdd);
@@ -90,8 +95,9 @@ class _HomePageState extends State<HomePage> {
             _nextDay,
             _previousDay,
           ),
-          PlansNumber(_plansModel.plansList),
-          PlansList(_plansModel.plansList, _done, _plansDelete),
+          PlansNumber(_plansModel.plansByDy(_nowDateChoose!)),
+          PlansList(
+              _plansModel.plansByDy(_nowDateChoose!), _done, _plansDelete),
         ],
       ),
       floatingActionButton: FloatingActionButton(

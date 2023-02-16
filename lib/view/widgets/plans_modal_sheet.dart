@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 
 class PLansModalSheet extends StatefulWidget {
   final Function plansAdd;
+
   PLansModalSheet(this.plansAdd);
+
   @override
   State<PLansModalSheet> createState() => _PLansModalSheetState();
 }
@@ -28,87 +30,95 @@ class _PLansModalSheetState extends State<PLansModalSheet> {
   }
 
   void submit() {
-    if(textController.text.isEmpty || chooseNowCalander == null){
+    if (textController.text.isEmpty || chooseNowCalander == null) {
       return;
     }
-    widget.plansAdd(textController.text,chooseNowCalander);
+    widget.plansAdd(textController.text, chooseNowCalander);
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14),
-            child: TextField(
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.only(
+            top: 16,
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                ? MediaQuery.of(context).viewInsets.bottom
+                : 300),
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TextField(
               decoration: const InputDecoration(
                 hintText: "Rejani qoshing",
               ),
               controller: textController,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  chooseNowCalander == null
-                      ? "Reja kuni tanlanmagan"
-                      : "${DateFormat("d,MMMM").format(chooseNowCalander!)}",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black45),
-                ),
-                TextButton(
-                  onPressed: () {
-                    plansInputCalendar(context);
-                  },
-                  child: const Text(
-                    "Kuni kiritish",
-                    style: TextStyle(
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    chooseNowCalander == null
+                        ? "Reja kuni tanlanmagan"
+                        : "${DateFormat("d,MMMM").format(chooseNowCalander!)}",
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.lightBlue),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "Bekor qilish",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                         color: Colors.black45),
                   ),
-                ),
-                ElevatedButton(
-                    onPressed: submit,
+                  TextButton(
+                    onPressed: () {
+                      plansInputCalendar(context);
+                    },
                     child: const Text(
-                      "Kiritish",
+                      "Kuni kiritish",
                       style: TextStyle(
-                          fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ))
-              ],
+                          fontSize: 18,
+                          color: Colors.lightBlue),
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      "Bekor qilish",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black45),
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: submit,
+                      child: const Text(
+                        "Kiritish",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ))
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

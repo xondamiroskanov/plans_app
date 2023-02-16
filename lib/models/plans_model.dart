@@ -28,6 +28,15 @@ class PlansInformation {
     return _plansList;
   }
 
+  List<PlansModel> plansByDy(DateTime dayTime) {
+    return _plansList
+        .where((day) =>
+            day.plansDay.day == dayTime.day &&
+            day.plansDay.month == dayTime.month &&
+            day.plansDay.year == dayTime.year)
+        .toList();
+  }
+
   void addPlansEnd(String pName, DateTime pDay) {
     _plansList.add(
       PlansModel(
