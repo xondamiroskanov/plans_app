@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<PlansModel> _plansModel = PlansInformation().plansList;
+  PlansInformation _plansModel = PlansInformation();
   DateTime? _nowDateChoose = DateTime.now();
 
   void _dateChoos(BuildContext context) {
@@ -45,21 +45,23 @@ class _HomePageState extends State<HomePage> {
 
   void _done(String myId) {
     setState(() {
-      _plansModel.firstWhere((element) => element.id == myId).toogleDoneFunc();
+      _plansModel.plansList.firstWhere((element) => element.id == myId).toogleDoneFunc();
     });
   }
 
   void _plansDelete(String id) {
     setState(() {
-      _plansModel.removeWhere((deleteId) {
+      _plansModel.plansList.removeWhere((deleteId) {
         return deleteId.id == id;
       });
     });
   }
 
   void _plansAdd(String plansname, DateTime time){
-    print(plansname);
-    print(time);
+    setState(() {
+      _plansModel.addPlansEnd(plansname, time);
+    });
+    Navigator.of(context).pop();
   }
 
   void plansAddDisplay(BuildContext context) {
@@ -88,8 +90,8 @@ class _HomePageState extends State<HomePage> {
             _nextDay,
             _previousDay,
           ),
-          PlansNumber(_plansModel),
-          PlansList(_plansModel, _done, _plansDelete),
+          PlansNumber(_plansModel.plansList),
+          PlansList(_plansModel.plansList, _done, _plansDelete),
         ],
       ),
       floatingActionButton: FloatingActionButton(
