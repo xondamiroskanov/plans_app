@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 
 class PLansModalSheet extends StatefulWidget {
   final Function plansAdd;
-
   PLansModalSheet(this.plansAdd);
 
   @override

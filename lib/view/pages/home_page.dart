@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        elevation: 6,
+        elevation: 8,
         onPressed: () {
           plansAddDisplay(context);
         },

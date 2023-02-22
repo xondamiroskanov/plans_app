@@ -3,7 +3,6 @@ class PlansModel {
   final String plansName;
   final DateTime plansDay;
   bool toogleDone = false;
-
   PlansModel(
       {required this.plansName, required this.plansDay, required this.id});
 
@@ -23,11 +22,9 @@ class PlansInformation {
         plansDay: DateTime.now(),
         id: "p4"),
   ];
-
   List<PlansModel> get plansList {
     return _plansList;
   }
-
   List<PlansModel> plansByDy(DateTime dayTime) {
     return _plansList
         .where((day) =>
